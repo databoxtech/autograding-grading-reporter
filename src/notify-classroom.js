@@ -49,6 +49,7 @@ exports.NotifyClassroom = async function NotifyClassroom(runnerResults) {
 
   // Find the check suite run
   console.log(`Workflow Run Response: ${workflowRunResponse.data.check_suite_url}`);
+  
   const checkSuiteUrl = workflowRunResponse.data.check_suite_url;
   const checkSuiteId = parseInt(checkSuiteUrl.match(/[0-9]+$/)[0], 10);
 
@@ -59,9 +60,9 @@ exports.NotifyClassroom = async function NotifyClassroom(runnerResults) {
     check_suite_id: checkSuiteId,
   });
 
-  console.log(`Workflow Run Response: ${checkRunsResponse.data.total_count}`);
+  console.log(`checkSuiteId: ${checkSuiteId}`);
   console.log(JSON.stringify(checkRunsResponse));
-  console.log(checkSuiteId);
+  console.log(`checkRunsResponse data: ${checkRunsResponse.data.total_count}`);
 
   // Filter to find the check run named "Autograding Tests" for the specific workflow run ID
   const checkRun = checkRunsResponse.data.total_count === 1 && checkRunsResponse.data.check_runs[0];
