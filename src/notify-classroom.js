@@ -60,7 +60,7 @@ exports.NotifyClassroom = async function NotifyClassroom(runnerResults) {
   });
 
   console.log(`Workflow Run Response: ${checkRunsResponse.data.total_count}`);
-  console.log(checkRunsResponse);
+  console.log(JSON.stringify(checkRunsResponse));
   console.log(checkSuiteId);
 
   // Filter to find the check run named "Autograding Tests" for the specific workflow run ID
