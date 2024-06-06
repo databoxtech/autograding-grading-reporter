@@ -59,6 +59,9 @@ exports.NotifyClassroom = async function NotifyClassroom(runnerResults) {
     check_suite_id: checkSuiteId,
   });
 
+  console.log(checkRunsResponse);
+  console.log(`Workflow Run Response: ${checkRunsResponse.data.total_count}`);
+
   // Filter to find the check run named "Autograding Tests" for the specific workflow run ID
   const checkRun = checkRunsResponse.data.total_count === 1 && checkRunsResponse.data.check_runs[0];
 
@@ -68,7 +71,7 @@ exports.NotifyClassroom = async function NotifyClassroom(runnerResults) {
   // the title and summary to be overwritten by GitHub Actions (they are required in this call)
   // We'll also store the total in an annotation to future-proof
   const text = `Points ${totalPoints}/${maxPoints}`;
-  await octokit.rest.checks.update({
+  const resp = await octokit.rest.checks.update({
     owner,
     repo,
     check_run_id: checkRun.id,
@@ -89,4 +92,6 @@ exports.NotifyClassroom = async function NotifyClassroom(runnerResults) {
       ],
     },
   });
+
+  console.log(resp);
 };
